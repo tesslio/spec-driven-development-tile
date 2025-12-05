@@ -1,0 +1,9 @@
+{
+  "name": "my-project",
+  "dependencies": {
+    "tessl-labs/spec-driven-development": {
+      "version": "0.0.1",
+      "source": "file:."
+    }
+  }
+}
