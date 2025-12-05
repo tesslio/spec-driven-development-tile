@@ -1,6 +1,6 @@
 {
   "name": "tessl-labs/spec-driven-development",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "summary": "Spec-driven workflow covering task intake, spec format, styleguide, and manual verification practices.",
   "private": true,
   "docs": "index.md",
