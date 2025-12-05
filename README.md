@@ -6,7 +6,18 @@ This repository contains the source code of the "Spec Driven Development" tile r
 - Published versions are be available in the Tessl Registry at: <https://tessl.io/registry/tessl-labs/spec-driven-development/>
 - Source code of this tile can be found at <https://github.com/tesslio/spec-driven-development-tile/>
 
+
+## Installation
+### Quickstart
+
+Simply run `npx @tessl/cli install tessl-labs/spec-driven-development`.
+
+### Using Tessl CLI
+
+Run `tessl install tessl-labs/spec-driven-development` to get this tile.
+
 ## Change requests
+
 - Please submit pull requests for changes
 
 ## License
