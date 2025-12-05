@@ -3,9 +3,8 @@
 
 This repository contains the source code of the "Spec Driven Development" tile release by Tessl.
 
-Published versions are be available in the Tessl Registry at:
-
-<https://tessl.io/registry/tessl-labs/spec-driven-development/>
+- Published versions are be available in the Tessl Registry at: <https://tessl.io/registry/tessl-labs/spec-driven-development/>
+- Source code of this tile can be found at <https://github.com/tesslio/spec-driven-development-tile/>
 
 ## Change requests
 - Please submit pull requests for changes
