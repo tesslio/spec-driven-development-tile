@@ -67,7 +67,7 @@ This tile contains methodology guidance (no code, no special tooling):
 
 Specs are markdown files (`.spec.md`) with YAML frontmatter:
 
-```markdown
+````markdown
 ---
 name: User Authentication
 description: Login and session management
@@ -92,7 +92,7 @@ def logout(session_id: str) -> None: ...
   [@test] ../tests/auth/test_invalid_credentials.py
 - Expired sessions return 403
   [@test] ../tests/auth/test_expired_session.py
-```
+````
 
 Key elements:
 - **`targets`**: Files or glob patterns the spec describes
