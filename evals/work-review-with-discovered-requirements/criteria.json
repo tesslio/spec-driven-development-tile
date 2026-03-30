@@ -1,0 +1,61 @@
+{
+  "context": "Tests whether the agent performs a thorough work review following the work-review skill: checking each requirement, running linked tests, capturing discovered requirements, updating the spec, and producing a structured review summary.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Review summary file created",
+      "max_score": 5,
+      "description": "A file named review.md is produced containing the review output"
+    },
+    {
+      "name": "Pass/fail per requirement",
+      "max_score": 12,
+      "description": "review.md contains a requirements section with individual pass/fail status for each spec requirement (using checkboxes or equivalent)"
+    },
+    {
+      "name": "File references on passing items",
+      "max_score": 8,
+      "description": "Passing requirements in review.md include a reference to the implementing file and approximate location (e.g. src/notifications/sender.py)"
+    },
+    {
+      "name": "Missing requirement identified",
+      "max_score": 12,
+      "description": "review.md identifies that send_sms silently skips when no phone number is on file (no MissingContactError raised), which is not documented in the spec"
+    },
+    {
+      "name": "Discovered requirement documented",
+      "max_score": 12,
+      "description": "review.md includes a 'Discovered requirements' section noting the account.reactivated event support added in the implementation (not in the original spec)"
+    },
+    {
+      "name": "Spec updated with discovered requirement",
+      "max_score": 10,
+      "description": "specs/notifications.spec.md is updated to include the account.reactivated event (or a note about the newly discovered behavior)"
+    },
+    {
+      "name": "Test results section",
+      "max_score": 8,
+      "description": "review.md contains a test results section listing the linked test files and their outcomes"
+    },
+    {
+      "name": "Linked tests referenced",
+      "max_score": 8,
+      "description": "review.md explicitly references at least three of the [@test]-linked files from the spec (test_delivery.py, test_events.py, test_retry.py, test_templates.py)"
+    },
+    {
+      "name": "Spec updates section",
+      "max_score": 8,
+      "description": "review.md contains a spec updates section describing what was changed in the spec"
+    },
+    {
+      "name": "Targets still accurate",
+      "max_score": 7,
+      "description": "After review, specs/notifications.spec.md targets still include both src/notifications/sender.py and src/notifications/templates.py"
+    },
+    {
+      "name": "Structured review format",
+      "max_score": 10,
+      "description": "review.md is organized into clear sections covering: requirement status, discovered differences, test outcomes, and spec changes — exact heading names do not matter as long as these four topics are covered in distinct sections"
+    }
+  ]
+}

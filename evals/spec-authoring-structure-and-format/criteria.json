@@ -1,0 +1,66 @@
+{
+  "context": "Tests whether the agent writes a properly structured .spec.md file following the spec-writer skill: correct file placement, valid frontmatter, API contract block, headings, and inline [@test] links.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Correct file location",
+      "max_score": 10,
+      "description": "The spec file is placed inside a specs/ directory (e.g. specs/inventory-reservation.spec.md or similar path under specs/)"
+    },
+    {
+      "name": ".spec.md extension",
+      "max_score": 8,
+      "description": "The spec filename ends with .spec.md"
+    },
+    {
+      "name": "Frontmatter present",
+      "max_score": 5,
+      "description": "The spec file opens with YAML frontmatter delimited by --- ... ---"
+    },
+    {
+      "name": "Frontmatter: name field",
+      "max_score": 5,
+      "description": "The frontmatter contains a non-empty 'name' field"
+    },
+    {
+      "name": "Frontmatter: description field",
+      "max_score": 5,
+      "description": "The frontmatter contains a non-empty 'description' field (one-line summary)"
+    },
+    {
+      "name": "Frontmatter: targets field",
+      "max_score": 10,
+      "description": "The frontmatter contains a 'targets' list with at least one relative path pointing to src/inventory/reservation.py or a glob that would match it"
+    },
+    {
+      "name": "API contract code block",
+      "max_score": 12,
+      "description": "The spec body includes a code block containing the public function signatures (reserve, release, get_reserved) as an API contract"
+    },
+    {
+      "name": "Headings used for sections",
+      "max_score": 8,
+      "description": "The spec body uses at least two markdown headings (##) to organize requirements by feature area (e.g. Core Operations, Business Rules, Error Handling)"
+    },
+    {
+      "name": "Inline test links",
+      "max_score": 12,
+      "description": "At least two [@test] links appear inline next to individual requirements (not grouped in a separate section at the bottom)"
+    },
+    {
+      "name": "Test links reference correct files",
+      "max_score": 10,
+      "description": "[@test] links reference paths under tests/inventory/ (test_reservation.py or test_reservation_edge_cases.py)"
+    },
+    {
+      "name": "Single spec for service",
+      "max_score": 8,
+      "description": "Exactly one spec file is created (not multiple files splitting the reservation service into unrelated chunks)"
+    },
+    {
+      "name": "Edge cases documented",
+      "max_score": 7,
+      "description": "The spec explicitly documents at least two edge cases or error conditions (e.g. InsufficientStockError with quantities, idempotent release of expired reservations)"
+    }
+  ]
+}

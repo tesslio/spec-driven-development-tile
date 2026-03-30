@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check-version:
+    name: Check version bump
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check version was bumped
+        run: |
+          if ! BASE_VERSION=$(git show origin/${{ github.base_ref }}:tile.json 2>/dev/null | jq -r '.version'); then
+            echo "No tile.json on base branch yet — skipping version check."
+            exit 0
+          fi
+
+          PR_VERSION=$(jq -r '.version' tile.json)
+
+          echo "Base version: $BASE_VERSION"
+          echo "PR version:   $PR_VERSION"
+
+          if [ "$BASE_VERSION" = "$PR_VERSION" ]; then
+            echo "::error::Version in tile.json was not updated. Bump the version before merging."
+            exit 1
+          fi
+
+  lint:
+    name: Lint tile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Tessl CLI
+        uses: tesslio/setup-tessl@v2
+
+      - name: Lint tile
+        run: tessl tile lint .
+
+  review-skills:
+    name: Review skills
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Tessl CLI
+        uses: tesslio/setup-tessl@v2
+        with:
+          token: ${{ secrets.TESSL_TOKEN }}
+
+      - name: Review skills
+        run: |
+          failed=0
+          for skill_dir in skills/*/; do
+            echo "--- Reviewing $skill_dir ---"
+            if ! tessl skill review "$skill_dir"; then
+              failed=1
+            fi
+          done
+          exit $failed
+
+  evals:
+    name: Run evals
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Tessl CLI
+        uses: tesslio/setup-tessl@v2
+        with:
+          token: ${{ secrets.TESSL_TOKEN }}
+
+      - name: Run evals
+        run: tessl eval run .

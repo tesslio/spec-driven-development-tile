@@ -1,5 +1,7 @@
 # Spec-Driven Development Tile
 
+[![tessl](https://img.shields.io/endpoint?url=https%3A%2F%2Fapi.tessl.io%2Fv1%2Fbadges%2Ftessl-labs%2Fspec-driven-development)](https://tessl.io/registry/tessl-labs/spec-driven-development)
+
 This repository contains the source code of the "Spec Driven Development" tile released by Tessl.
 
 - **Published versions**: https://tessl.io/registry/tessl-labs/spec-driven-development/
@@ -54,14 +56,58 @@ Once requirements are clear, the agent creates specs in a `specs/` directory, wa
 
 ## What's in This Tile
 
-This tile contains methodology guidance (no code, no special tooling):
+### Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `requirement-gathering` | Interview stakeholders to clarify ambiguous requirements before writing code |
+| `spec-writer` | Create or update `.spec.md` files from clarified requirements |
+| `spec-verification` | Verify implementation and tests remain synchronized with specs |
+| `work-review` | Review completed work against approved specs |
+
+### Rules
+
+| Rule | Always Apply | Purpose |
+|------|-------------|---------|
+| `spec-before-code` | Yes | Never begin implementation without an approved spec |
+| `one-question-at-a-time` | Yes | Ask exactly one question per message during requirement gathering |
+| `spec-format-compliance` | No | Ensure `.spec.md` files follow the required format |
+
+### Docs
 
 | File | Purpose |
 |------|---------|
-| `index.md` | Core workflow: requirement gathering → spec creation → approval → implementation → review |
-| `spec-format.md` | How to structure spec files: YAML frontmatter, targets, `[@test]` links |
-| `spec-styleguide.md` | Best practices for writing clear, maintainable specs |
-| `spec-verification.md` | Manual verification workflow to keep specs and code synchronized |
+| `docs/spec-format.md` | How to structure spec files: YAML frontmatter, targets, `[@test]` links |
+| `docs/spec-styleguide.md` | Best practices for writing clear, maintainable specs |
+
+### Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `scripts/validate-specs.sh` | Validate `.spec.md` files have required frontmatter and structure |
+| `scripts/check-spec-links.sh` | Check that `[@test]` links and targets point to existing files |
+
+### Evals
+
+Nine evaluation scenarios covering:
+- Spec authoring from confirmed requirements
+- Requirements gap analysis against existing specs
+- Work review catching implementation drift
+- Spec drift detection after file refactoring
+- Extending an existing spec with new requirements
+- Decomposing a vague request into concrete gaps
+- Interview question preparation (one-question-at-a-time)
+- Handling code written without a spec
+- Trivial changes that should bypass the full workflow
+
+### CI
+
+GitHub Actions workflows (via [`tesslio/setup-tessl`](https://github.com/tesslio/setup-tessl)):
+- **Lint** — validates tile structure on every push and PR
+- **Skill review** — runs `tessl skill review` on all skills
+- **Evals** — runs all 9 scenarios on PRs
+- **Version check** — ensures `tile.json` version is bumped on PRs
+- **Publish** — publishes to the Tessl registry on merge to main
 
 ## The Spec Format
 
@@ -116,11 +162,11 @@ Key elements:
 
 This is a **steering tile** — it provides guidance that becomes part of the agent's context. When you install it:
 
-1. Tessl adds the tile's markdown files to your project's `.tessl/` directory
+1. Tessl adds the tile's files to your project's `.tessl/` directory
 2. Your MCP-compatible agent (Claude Code, Cursor, etc.) reads this context
-3. The agent follows the methodology described in the tile
+3. The agent follows the methodology described in the tile's skills and rules
 
-No special commands. No annotations. No framework. Just well-crafted documentation that changes agent behavior.
+No special commands. No annotations. No framework. Skills provide the workflows, rules enforce the constraints, and docs give the reference material.
 
 ## Workflow Overview
 

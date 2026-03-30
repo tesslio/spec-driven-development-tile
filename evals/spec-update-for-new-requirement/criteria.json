@@ -1,0 +1,61 @@
+{
+  "context": "Spec update: agent must extend an existing spec with new rate limiting requirements without losing existing content.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Existing content preserved",
+      "max_score": 15,
+      "description": "All existing sections (Endpoints, Authentication, Pagination, Error handling) are preserved with their original content intact"
+    },
+    {
+      "name": "Rate limiting section added",
+      "max_score": 10,
+      "description": "A new section covering rate limiting is added to the spec"
+    },
+    {
+      "name": "Default limit documented",
+      "max_score": 8,
+      "description": "Spec states the default rate limit of 100 requests per minute per API key"
+    },
+    {
+      "name": "Search endpoint limit documented",
+      "max_score": 8,
+      "description": "Spec states that /search has a lower limit of 20 requests per minute"
+    },
+    {
+      "name": "429 response documented",
+      "max_score": 8,
+      "description": "Spec documents the HTTP 429 response with Retry-After header"
+    },
+    {
+      "name": "Admin multiplier documented",
+      "max_score": 8,
+      "description": "Spec documents the 10x rate limit multiplier for admin API keys"
+    },
+    {
+      "name": "Test links added for rate limiting",
+      "max_score": 10,
+      "description": "New [@test] links are added for rate limiting requirements (not reusing existing test file links)"
+    },
+    {
+      "name": "Frontmatter preserved",
+      "max_score": 5,
+      "description": "YAML frontmatter (name, description, targets) is preserved — not removed or corrupted"
+    },
+    {
+      "name": "Single spec file",
+      "max_score": 8,
+      "description": "Rate limiting is added to the existing specs/api.spec.md — not a separate spec file"
+    },
+    {
+      "name": "No requirement gathering attempted",
+      "max_score": 10,
+      "description": "Agent does NOT ask clarifying questions or start an interview — requirements are already confirmed"
+    },
+    {
+      "name": ".spec.md extension retained",
+      "max_score": 5,
+      "description": "The updated file keeps the .spec.md extension"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "context": "Spec drift detection: the auth module was refactored (files moved, lockout threshold changed from 5 to 3, session TTL changed from 24h to 8h). Agent must catch all discrepancies.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Drift report produced",
+      "max_score": 4,
+      "description": "A file named drift-report.md is created"
+    },
+    {
+      "name": "Broken targets detected",
+      "max_score": 10,
+      "description": "Report identifies that targets src/auth/login.py and src/auth/session.py no longer exist — files moved to src/identity/"
+    },
+    {
+      "name": "Broken test links detected",
+      "max_score": 10,
+      "description": "Report identifies that [@test] links pointing to tests/auth/ are broken — tests moved to tests/identity/"
+    },
+    {
+      "name": "Lockout threshold change detected",
+      "max_score": 15,
+      "description": "Report identifies that lockout threshold changed from 5 failed attempts (in spec) to 3 (in code)"
+    },
+    {
+      "name": "Session TTL change detected",
+      "max_score": 15,
+      "description": "Report identifies that session expiry changed from 24 hours (in spec) to 8 hours (in code)"
+    },
+    {
+      "name": "Updated spec targets corrected",
+      "max_score": 10,
+      "description": "Updated specs/auth.spec.md has targets pointing to src/identity/authentication.py and src/identity/sessions.py"
+    },
+    {
+      "name": "Updated spec test links corrected",
+      "max_score": 10,
+      "description": "Updated specs/auth.spec.md has [@test] links pointing to tests/identity/ paths"
+    },
+    {
+      "name": "Updated spec lockout threshold corrected",
+      "max_score": 8,
+      "description": "Updated specs/auth.spec.md says 3 failed attempts (matching the code), not 5"
+    },
+    {
+      "name": "Updated spec session TTL corrected",
+      "max_score": 8,
+      "description": "Updated specs/auth.spec.md says 8 hours (matching the code), not 24"
+    },
+    {
+      "name": "No false positives",
+      "max_score": 10,
+      "description": "Report does not flag things that are NOT drift (e.g. does not claim functions were removed when they still exist under new paths)"
+    }
+  ]
+}
