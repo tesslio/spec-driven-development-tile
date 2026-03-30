@@ -1,6 +1,6 @@
 {
   "name": "tessl-labs/spec-driven-development",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "summary": "Spec-driven workflow covering requirement gathering, spec authoring, implementation review, and verification — with skills, rules, and evaluation scenarios.",
   "private": false,
   "docs": "docs/index.md",
