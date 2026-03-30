@@ -1,0 +1,56 @@
+{
+  "context": "Tests one-question-at-a-time formatting and gap identification for a greenfield feature with no existing specs.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Output file created",
+      "max_score": 4,
+      "description": "A file named webhook-interview-prep.md is produced"
+    },
+    {
+      "name": "Questions are individual items",
+      "max_score": 15,
+      "description": "Interview questions are listed as separate numbered items — each question asks about exactly ONE topic, not bundled (e.g. NOT 'What about retries, timeouts, and ordering?')"
+    },
+    {
+      "name": "Questions are self-contained",
+      "max_score": 10,
+      "description": "Each question makes sense on its own without needing to read previous questions — no 'follow-up to above' or 'related to Q3' references"
+    },
+    {
+      "name": "Questions ordered by criticality",
+      "max_score": 8,
+      "description": "Core behavior questions (what events, delivery guarantees, URL configuration) come before edge case questions (rate limiting, payload size, etc.)"
+    },
+    {
+      "name": "Questions are specific and bounded",
+      "max_score": 12,
+      "description": "Questions are concrete (e.g. 'Should failed deliveries be retried, and if so, how many times?' not 'What about error handling?')"
+    },
+    {
+      "name": "Delivery semantics addressed",
+      "max_score": 8,
+      "description": "Gap list or questions address delivery guarantees — at-least-once vs. at-most-once vs. exactly-once"
+    },
+    {
+      "name": "Retry/failure handling addressed",
+      "max_score": 8,
+      "description": "Gap list or questions address what happens when a webhook delivery fails (retries, backoff, disabling endpoints)"
+    },
+    {
+      "name": "Security addressed",
+      "max_score": 8,
+      "description": "Gap list or questions address webhook security (signing/verification, HTTPS requirements, secret management)"
+    },
+    {
+      "name": "No spec created",
+      "max_score": 10,
+      "description": "No .spec.md file is created — this is pre-interview preparation only"
+    },
+    {
+      "name": "No implementation proposed",
+      "max_score": 8,
+      "description": "Document does NOT propose technical solutions, architecture choices, or implementation details (e.g. does NOT say 'use a message queue' or 'store in PostgreSQL')"
+    }
+  ]
+}

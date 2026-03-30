@@ -1,0 +1,56 @@
+{
+  "context": "Vague request analysis: agent must decompose 'make search better' into concrete gaps using the existing spec as a baseline, not jump to solutions.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Output file created",
+      "max_score": 4,
+      "description": "A file named search-improvement-prep.md is produced"
+    },
+    {
+      "name": "Existing coverage summarized",
+      "max_score": 10,
+      "description": "Document summarizes what the current search spec already covers (query interface, TF-IDF ranking, filters, pagination, indexing)"
+    },
+    {
+      "name": "Does not propose solutions",
+      "max_score": 12,
+      "description": "Document focuses on identifying gaps and questions — does NOT jump to proposing implementation changes (e.g. does NOT say 'switch to Elasticsearch' or 'add caching')"
+    },
+    {
+      "name": "Ambiguity of 'slow' analyzed",
+      "max_score": 10,
+      "description": "Document identifies that 'slow' is ambiguous — could mean query latency, indexing speed, perceived UI slowness, etc."
+    },
+    {
+      "name": "Ambiguity of 'doesn't find' analyzed",
+      "max_score": 10,
+      "description": "Document identifies that 'doesn't find what they need' is ambiguous — could mean relevance ranking, missing fields, typo tolerance, partial matching, etc."
+    },
+    {
+      "name": "Questions are specific and bounded",
+      "max_score": 12,
+      "description": "Interview questions are specific (e.g. 'What is the current p95 query latency?' not 'What's wrong with search?')"
+    },
+    {
+      "name": "Questions are individual items",
+      "max_score": 10,
+      "description": "Questions are listed as separate numbered items, not bundled or multi-part"
+    },
+    {
+      "name": "No redundant questions",
+      "max_score": 10,
+      "description": "Questions do not ask about things already documented in the spec (e.g. does NOT ask 'what fields are searched?' — that's already in the spec)"
+    },
+    {
+      "name": "Performance gap identified",
+      "max_score": 8,
+      "description": "Gap list notes that the existing spec has no performance requirements (no SLAs, no latency targets, no index size limits)"
+    },
+    {
+      "name": "No implementation attempted",
+      "max_score": 8,
+      "description": "Agent does NOT modify any source files or create a new spec — this is a preparation task only"
+    }
+  ]
+}

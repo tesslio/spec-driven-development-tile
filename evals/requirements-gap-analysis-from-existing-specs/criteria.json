@@ -1,0 +1,61 @@
+{
+  "context": "Tests whether the agent follows the requirement-gathering skill when preparing for a stakeholder interview: reviewing existing specs to identify what's already covered, identifying genuine gaps, formulating one-at-a-time questions based on those gaps, and producing a structured requirements summary.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Output file created",
+      "max_score": 4,
+      "description": "A file named requirements-prep.md is produced"
+    },
+    {
+      "name": "Existing coverage section",
+      "max_score": 10,
+      "description": "requirements-prep.md contains a section summarizing what the existing specs (user-management.spec.md, auth.spec.md) already document that is relevant to the export feature"
+    },
+    {
+      "name": "Cites list_users as existing",
+      "max_score": 8,
+      "description": "The coverage summary specifically notes that list_users with role/status filtering already exists in the spec"
+    },
+    {
+      "name": "Gap analysis present",
+      "max_score": 10,
+      "description": "requirements-prep.md contains a section identifying specific ambiguous or undocumented areas for the export feature (not just generic categories)"
+    },
+    {
+      "name": "Questions are separate items",
+      "max_score": 12,
+      "description": "Interview questions are listed as individual numbered items — NOT bundled together as a multi-part question or a comma-separated list"
+    },
+    {
+      "name": "No redundant questions",
+      "max_score": 12,
+      "description": "Questions do NOT ask about things already documented in the existing specs (e.g. does NOT ask what roles exist, does NOT ask about pagination behavior already defined)"
+    },
+    {
+      "name": "Performance/scale addressed",
+      "max_score": 10,
+      "description": "Gap analysis or questions address the large-org scale requirement (50k+ users) — e.g. async job vs. synchronous, streaming, timeouts"
+    },
+    {
+      "name": "Preliminary scope section",
+      "max_score": 8,
+      "description": "requirements-prep.md contains a scope section distinguishing what is likely in scope versus out of scope"
+    },
+    {
+      "name": "Non-functional gaps identified",
+      "max_score": 8,
+      "description": "Gap analysis or questions address at least one non-functional requirement (performance, security, file size limits, rate limiting, or similar)"
+    },
+    {
+      "name": "Gap-driven questions",
+      "max_score": 8,
+      "description": "Each question clearly addresses a gap identified in the gap analysis — not generic process questions or things answerable from existing specs"
+    },
+    {
+      "name": "Questions are specific and bounded",
+      "max_score": 10,
+      "description": "Questions are specific and bounded (e.g. 'Should the export be synchronous or generated as a background job?' not 'How should the export work?')"
+    }
+  ]
+}

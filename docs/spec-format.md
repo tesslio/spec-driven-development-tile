@@ -9,7 +9,7 @@ Specs include YAML frontmatter at the beginning of the file to clarify what they
 ```yaml
 ---
 name: Database Architecture
-Description: Key design patterns used across our data models
+description: Key design patterns used across our data models
 targets:
   - ../src/models/**/*.py
 ---
@@ -26,6 +26,8 @@ A list of relative file paths or glob patterns described by the spec. They can i
 ## `[@test]` Links
 
 Specs should contain links to the tests that verify their behaviour. Test links are intermingled with the requirements they verify, with context dictating what content is verified.
+
+### Example
 
 <calculator.spec.md>
 ---

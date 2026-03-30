@@ -1,0 +1,36 @@
+{
+  "context": "Trivial change exception: a typo fix in an error message string should NOT trigger the full SDD workflow.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Typo fixed",
+      "max_score": 15,
+      "description": "The string 'Invlaid email format' in src/validation.py is corrected to 'Invalid email format'"
+    },
+    {
+      "name": "No spec created or modified",
+      "max_score": 15,
+      "description": "No new spec file is created and specs/registration.spec.md is not modified — a typo fix doesn't change behavior"
+    },
+    {
+      "name": "No requirement gathering",
+      "max_score": 10,
+      "description": "Agent does NOT start an interview or ask clarifying questions for a typo fix"
+    },
+    {
+      "name": "Recognizes trivial exception",
+      "max_score": 10,
+      "description": "changes.md explains that this is a trivial change that falls under the spec-before-code exception"
+    },
+    {
+      "name": "Changes file produced",
+      "max_score": 5,
+      "description": "A file named changes.md is created describing what was changed"
+    },
+    {
+      "name": "Only the typo changed",
+      "max_score": 10,
+      "description": "No other modifications are made to src/validation.py — no refactoring, no added features, no style changes"
+    }
+  ]
+}

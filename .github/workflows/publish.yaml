@@ -1,0 +1,24 @@
+name: Publish Tile
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Tessl CLI
+        uses: tesslio/setup-tessl@v2
+        with:
+          token: ${{ secrets.TESSL_TOKEN }}
+
+      - name: Publish tile
+        run: tessl tile publish .

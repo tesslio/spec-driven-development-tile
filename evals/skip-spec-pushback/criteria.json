@@ -1,0 +1,56 @@
+{
+  "context": "Spec bypass: code was written without a spec. Agent must identify the process violation, extract implicit requirements from the code, and prepare draft spec content for team review.",
+  "type": "weighted_checklist",
+  "checklist": [
+    {
+      "name": "Assessment file created",
+      "max_score": 4,
+      "description": "A file named caching-assessment.md is produced"
+    },
+    {
+      "name": "Process violation identified",
+      "max_score": 10,
+      "description": "Document explicitly states that this code was written without a spec, violating the spec-before-code workflow"
+    },
+    {
+      "name": "In-memory cache limitation noted",
+      "max_score": 10,
+      "description": "Document identifies that the cache is in-process memory (Python dict) — won't work across multiple workers/processes"
+    },
+    {
+      "name": "TTL behavior documented",
+      "max_score": 8,
+      "description": "Draft spec section documents the TTL behavior: 5-minute default, 60-second TTL for list_projects"
+    },
+    {
+      "name": "Invalidation behavior documented",
+      "max_score": 8,
+      "description": "Draft spec section documents cache invalidation on create_project"
+    },
+    {
+      "name": "Cache scope documented",
+      "max_score": 8,
+      "description": "Draft spec section documents which endpoints are cached (get_project, list_projects) and which are not"
+    },
+    {
+      "name": "Gaps identified",
+      "max_score": 12,
+      "description": "Document raises at least two genuine gaps the code doesn't address (e.g. cache eviction under memory pressure, stale data on update/delete, no cache headers in HTTP response, auth-scoped caching)"
+    },
+    {
+      "name": "No spec file created",
+      "max_score": 10,
+      "description": "Agent does NOT create a .spec.md file — only the assessment document. The spec needs team approval first."
+    },
+    {
+      "name": "Draft spec section included",
+      "max_score": 8,
+      "description": "The assessment includes a draft spec section (markdown with requirements) that the team could review and adopt into specs/api.spec.md"
+    },
+    {
+      "name": "Existing spec referenced",
+      "max_score": 5,
+      "description": "Document references specs/api.spec.md as the spec that should be updated once the caching requirements are approved"
+    }
+  ]
+}
