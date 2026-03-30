@@ -105,9 +105,10 @@ Nine evaluation scenarios covering:
 GitHub Actions workflows (via [`tesslio/setup-tessl`](https://github.com/tesslio/setup-tessl)):
 - **Lint** — validates tile structure on every push and PR
 - **Skill review** — runs `tessl skill review` on all skills
-- **Evals** — runs all 9 scenarios on PRs
 - **Version check** — ensures `tile.json` version is bumped on PRs
 - **Publish** — publishes to the Tessl registry on merge to main
+
+Evals are run locally via `make eval` or `tessl eval run .` during development.
 
 ## The Spec Format
 

@@ -77,18 +77,3 @@ jobs:
           done
           exit $failed
 
-  evals:
-    name: Run evals
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Tessl CLI
-        uses: tesslio/setup-tessl@v2
-        with:
-          token: ${{ secrets.TESSL_TOKEN }}
-
-      - name: Run evals
-        run: tessl eval run .
