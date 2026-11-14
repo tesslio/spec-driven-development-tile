@@ -32,6 +32,7 @@ check_spec() {
     # Check for frontmatter delimiters
     local first_line
     first_line=$(head -1 "$file")
+    first_line="${first_line%$'\r'}"
     if [[ "$first_line" != "---" ]]; then
         errors+=("Missing YAML frontmatter (no opening ---)")
         for err in "${errors[@]}"; do
@@ -42,7 +43,9 @@ check_spec() {
 
     # Extract frontmatter (between first and second ---)
     local frontmatter
-    frontmatter=$(awk 'NR==1{next} /^---$/{exit} {print}' "$file")
+    if ! frontmatter=$(awk '{sub(/\r$/, "")} NR==1{next} /^---$/{closed=1; exit} {print} END{if (!closed) exit 1}' "$file"); then
+        errors+=("Missing closing YAML frontmatter delimiter (---)")
+    fi
 
     if [ -z "$frontmatter" ]; then
         errors+=("Empty or missing YAML frontmatter")

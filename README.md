@@ -110,6 +110,13 @@ GitHub Actions workflows (via [`tesslio/setup-tessl`](https://github.com/tesslio
 
 Evals are run locally via `make eval` or `tessl eval run .` during development.
 
+The spec validation scripts have a local regression suite that needs Python 3
+and Bash, with no Tessl credentials required:
+
+```bash
+python3 -m unittest discover -s tests -v
+```
+
 ## The Spec Format
 
 Specs are markdown files (`.spec.md`) with YAML frontmatter:
