@@ -62,7 +62,7 @@ check_spec() {
         else
             # Check that targets has at least one entry
             local target_count
-            target_count=$(echo "$frontmatter" | awk '/^targets:/{found=1; next} found && /^  - /{count++} found && /^[^ ]/{exit} END{print count+0}')
+            target_count=$(echo "$frontmatter" | awk '/^targets:/{found=1; next} found && /^[[:space:]]*-[[:space:]]+/{count++; next} found && /^[^[:space:]]/{exit} END{print count+0}')
             if [ "$target_count" -eq 0 ]; then
                 errors+=("targets list is empty (at least one target required)")
             fi

@@ -40,6 +40,15 @@ class SpecScriptsTest(unittest.TestCase):
         self.run_script('validate-specs.sh')
         self.run_script('check-spec-links.sh')
 
+    def test_target_sequences_accept_other_yaml_indentation(self):
+        for indentation in ['', ' ', '    ', '      ']:
+            with self.subTest(indentation=repr(indentation)):
+                self.write_spec()
+                spec = self.specs / 'example.spec.md'
+                spec.write_text(spec.read_text().replace('  - ', indentation + '- '))
+                self.run_script('validate-specs.sh')
+                self.run_script('check-spec-links.sh')
+
     def test_requires_closing_frontmatter(self):
         self.write_spec(closing=False)
         self.run_script('validate-specs.sh', 1)

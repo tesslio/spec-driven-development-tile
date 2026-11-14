@@ -42,7 +42,7 @@ check_links() {
                 continue
             fi
             if $in_targets; then
-                if [[ "$line" =~ ^[[:space:]]+-[[:space:]]+(.*) ]]; then
+                if [[ "$line" =~ ^[[:space:]]*-[[:space:]]+(.*) ]]; then
                     local target="${BASH_REMATCH[1]}"
                     # YAML permits quoted scalar paths; the quotes are not part of the path.
                     if [[ "$target" == \"*\" || "$target" == \'*\' ]]; then
