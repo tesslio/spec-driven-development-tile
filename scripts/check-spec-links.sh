@@ -26,7 +26,8 @@ check_links() {
     local in_frontmatter=false
     local in_targets=false
 
-    while IFS= read -r line; do
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        line="${line%$'\r'}"
         if [[ "$line" == "---" ]]; then
             if $in_frontmatter; then
                 break  # End of frontmatter
@@ -41,14 +42,27 @@ check_links() {
                 continue
             fi
             if $in_targets; then
-                if [[ "$line" =~ ^[[:space:]]+-[[:space:]]+(.*) ]]; then
+                if [[ "$line" =~ ^[[:space:]]*-[[:space:]]+(.*) ]]; then
                     local target="${BASH_REMATCH[1]}"
+                    # YAML permits quoted scalar paths; the quotes are not part of the path.
+                    if [[ "$target" == \"*\" || "$target" == \'*\' ]]; then
+                        target="${target:1:${#target}-2}"
+                    fi
                     local resolved="$file_dir/$target"
 
                     # Check if it's a glob pattern
-                    if [[ "$target" == *"*"* ]]; then
+                    if [[ "$target" == *[\*\?\[]* ]]; then
                         local matches
-                        matches=$(compgen -G "$resolved" 2>/dev/null | head -1 || true)
+                        # Expand ** across zero or more directories. An empty IFS keeps
+                        # paths containing spaces intact during pathname expansion.
+                        matches=$(
+                            shopt -s globstar nullglob
+                            IFS=
+                            paths=( $resolved )
+                            if [ ${#paths[@]} -gt 0 ]; then
+                                printf '%s\n' "${paths[0]}"
+                            fi
+                        )
                         if [ -z "$matches" ]; then
                             errors+=("target glob matches no files: $target")
                         fi
@@ -65,7 +79,8 @@ check_links() {
     done < "$file"
 
     # Check [@test] links in body
-    while IFS= read -r line; do
+    while IFS= read -r line || [[ -n "$line" ]]; do
+        line="${line%$'\r'}"
         if [[ "$line" =~ \[@test\][[:space:]]*(.*) ]]; then
             local test_path="${BASH_REMATCH[1]}"
             # Strip trailing backtick if present

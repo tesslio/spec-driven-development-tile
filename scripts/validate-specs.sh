@@ -32,6 +32,7 @@ check_spec() {
     # Check for frontmatter delimiters
     local first_line
     first_line=$(head -1 "$file")
+    first_line="${first_line%$'\r'}"
     if [[ "$first_line" != "---" ]]; then
         errors+=("Missing YAML frontmatter (no opening ---)")
         for err in "${errors[@]}"; do
@@ -42,7 +43,9 @@ check_spec() {
 
     # Extract frontmatter (between first and second ---)
     local frontmatter
-    frontmatter=$(awk 'NR==1{next} /^---$/{exit} {print}' "$file")
+    if ! frontmatter=$(awk '{sub(/\r$/, "")} NR==1{next} /^---$/{closed=1; exit} {print} END{if (!closed) exit 1}' "$file"); then
+        errors+=("Missing closing YAML frontmatter delimiter (---)")
+    fi
 
     if [ -z "$frontmatter" ]; then
         errors+=("Empty or missing YAML frontmatter")
@@ -59,7 +62,7 @@ check_spec() {
         else
             # Check that targets has at least one entry
             local target_count
-            target_count=$(echo "$frontmatter" | awk '/^targets:/{found=1; next} found && /^  - /{count++} found && /^[^ ]/{exit} END{print count+0}')
+            target_count=$(echo "$frontmatter" | awk '/^targets:/{found=1; next} found && /^[[:space:]]*-[[:space:]]+/{count++; next} found && /^[^[:space:]]/{exit} END{print count+0}')
             if [ "$target_count" -eq 0 ]; then
                 errors+=("targets list is empty (at least one target required)")
             fi
